@@ -1,0 +1,7 @@
+HumanCounter
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+Makefile
+*txt
+*py
