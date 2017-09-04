@@ -12,6 +12,7 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/tracking.hpp"
+#include "opencv2/tracking/tldDataset.hpp"
 
 #define SIZEX 640
 #define SIZEY 480
@@ -22,6 +23,7 @@ using namespace cv;
 CascadeClassifier face_cascade;
 Ptr<BackgroundSubtractor> pMOG2;
 
+MultiTracker trackers;
 void usage(char *s);
 
 char *filename;
@@ -151,6 +153,7 @@ void detect(Mat frame) {
 int main(int argc, char *argv[])
 {
 
+    Ptr<TrackerKCF> tracker = TrackerKCF::create();
     VideoCapture camera("peopleCounter.avi");
     //VideoCapture camera(0);
 
@@ -171,6 +174,7 @@ int main(int argc, char *argv[])
         camera.grab();
         //
         camera.retrieve(frame);
+        tracker->init(frame, bbox);
         detect(frame);
         //
 
